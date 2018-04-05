@@ -79,8 +79,9 @@ class MainWindow(QMainWindow):
 
 class SecondWindow(MainWindow):
     def __init__(self, path_to_picture):
-        super().__init__(path_to_picture, 100, 100)
+        super().__init__(path_to_picture=path_to_picture, left=100, top=100)
         self.changed = True
+        self.matrix = main_window.matrix
 
 
 class MyTableDialog(MainWindow):

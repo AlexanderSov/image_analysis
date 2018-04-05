@@ -133,15 +133,19 @@ class ImageTransform:
         div, div1 = 0, 0
         for i in range(indent, self.width-indent):
             for j in range(indent, self.height-indent):
-                s = 0
+                s0, s1, s2 = 0, 0, 0
                 for k in range(matrix_size):
                     for l in range(matrix_size):
-                        s += self.pix[i-indent+k, j-indent+l][0] * matrix[k][l]
+                        s0 += self.pix[i-indent+k, j-indent+l][0] * matrix[k][l]
+                        s1 += self.pix[i-indent+k, j-indent+l][1] * matrix[k][l]
+                        s2 += self.pix[i-indent+k, j-indent+l][2] * matrix[k][l]
                         if div == 0 and i == indent and j == indent:
                             div1 += matrix[k][l]
                 div = div1
-                s1 = s // div
-                self.draw.point((i, j), (s1, s1, s1))
+                s0 = s0 // div
+                s1 = s1 // div
+                s2 = s2 // div
+                self.draw.point((i, j), (s0, s1, s2))
         self.letter = 'matrix'
         self.do_new_path()
         self.image.save(self.path_new)
